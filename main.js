@@ -21,10 +21,11 @@ function submitIssue(e) {
   e.preventDefault();
 }
 
-const closeIssue = id => {
+const setStatusClosed = id => {
   const issues = JSON.parse(localStorage.getItem('issues'));
   const currentIssue = issues.find(issue => issue.id === id);
-  currentIssue.status = 'Closed';
+  // currentIssue.status = 'Closed';
+  console.log(currentIssue)
   localStorage.setItem('issues', JSON.stringify(issues));
   fetchIssues();
 }
@@ -54,3 +55,8 @@ const fetchIssues = () => {
                               </div>`;
   }
 }
+
+
+// function setStatusClosed(id){
+//   console.log(id)
+// }
