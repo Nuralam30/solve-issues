@@ -25,7 +25,6 @@ const closeIssue = id => {
   const issues = JSON.parse(localStorage.getItem('issues'));
   const currentIssue = issues.find(issue => issue.id == id);
   currentIssue.status = 'Closed';
-  console.log(currentIssue.status)
   localStorage.setItem('issues', JSON.stringify(issues));
   fetchIssues();
 }
@@ -34,6 +33,7 @@ const deleteIssue = id => {
   const issues = JSON.parse(localStorage.getItem('issues'));
   const remainingIssues = issues.filter(issue => issue.id != id );
   localStorage.setItem('issues', JSON.stringify(remainingIssues));
+  fetchIssues();
 }
 
 const fetchIssues = () => {
@@ -54,5 +54,25 @@ const fetchIssues = () => {
                                 <a href="#" id="delete-btn" onclick="deleteIssue(${id})" class="btn btn-danger">Delete</a>
                               </div>`;
   }
+  totalIssue()
 }
+
+
+function totalIssue(){
+  const issues = JSON.parse(localStorage.getItem('issues'));
+  var totalCount = 0;
+  var activeCount = 0;
+
+  for (let i = 0; i < issues.length; i++) {
+    if(issues[i].status != "Closed"){
+      activeCount++
+    }
+    
+    totalCount++
+  }
+
+  document.getElementById('active-issue').innerHTML = activeCount;
+  document.getElementById('total-issue').innerHTML = totalCount;
+}
+
 
