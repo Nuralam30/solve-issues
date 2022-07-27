@@ -21,17 +21,18 @@ function submitIssue(e) {
   e.preventDefault();
 }
 
-// const closeIssue = id => {
-//   const issues = JSON.parse(localStorage.getItem('issues'));
-//   // const currentIssue = issues.find(issue => issue.id);
-//   //currentIssue.status = 'Closed';
-//   localStorage.setItem('issues', JSON.stringify(issues));
-//   fetchIssues();
-// }
+const closeIssue = id => {
+  const issues = JSON.parse(localStorage.getItem('issues'));
+  const currentIssue = issues.find(issue => issue.id == id);
+  currentIssue.status = 'Closed';
+  console.log(currentIssue.status)
+  localStorage.setItem('issues', JSON.stringify(issues));
+  fetchIssues();
+}
 
 const deleteIssue = id => {
   const issues = JSON.parse(localStorage.getItem('issues'));
-  const remainingIssues = issues.filter(issue.id !== id )
+  const remainingIssues = issues.filter(issue => issue.id != id );
   localStorage.setItem('issues', JSON.stringify(remainingIssues));
 }
 
@@ -49,33 +50,9 @@ const fetchIssues = () => {
                                 <h3> ${description} </h3>
                                 <p><span class="glyphicon glyphicon-time"></span> ${severity}</p>
                                 <p><span class="glyphicon glyphicon-user"></span> ${assignedTo}</p>
-                                <a href="#" id="close-btn" onclick="closeIssue()" class="btn btn-warning">Close</a>
+                                <a href="#" id="close-btn" onclick="closeIssue(${id})" class="btn btn-warning">Close</a>
                                 <a href="#" id="delete-btn" onclick="deleteIssue(${id})" class="btn btn-danger">Delete</a>
                               </div>`;
   }
 }
-
-
-
-function closeIssue(){
-  const issues = JSON.parse(localStorage.getItem('issues'));
-  const issuesList = document.getElementById('issuesList');
-
-  issuesList.addEventListener('click', function(e){
-    const item = e.target;
-
-    // close issue
-    if(item.id === "close-btn") {
-      const issue = item.parentElement;
-      issue.style.display = 'none';
-      // removeLocalTodos(issue);
-      // issue.addEventListener('transitionend', function(){
-      //     todo.remove();
-      // });
-      localStorage.setItem('issues', JSON.stringify(issues));
-      console.log(issue)
-  }
-  })
-}
-
 
